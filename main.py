@@ -7,28 +7,38 @@ from Shingling import Shingling
 from CompareSets import CompareSets
 from CompareSignatures import CompareSignatures
 from MinHashing import MinHashing
-
 from LSH import LSH
 
 
+
 def main(args):
-    assert args.method.lower() in methods, 'Method not valid'
+    """
+    Find similar documents and print them.
+    :param args: arguments
+    :return:
+    """
 
     method = methods[args.method.lower()]
 
+    # Load data
     data_loader = DataLoader(args.filename)
     docs = data_loader.get_documents(args.ndocuments, randomize=False)
 
+    # Create shingle sets
     shingling = Shingling(docs, args.kshingle)
     shingling.docs_to_hashed_shingles()
     shingle_sets = shingling.hashed_shingles
 
     if method == 0:
+        # Use LSH
+
+        # Get document signatures
         min_hashing_object = MinHashing()
         signature_matrix = min_hashing_object.get_signature_matrix_hash(shingle_sets,
                                                                         signature_len=args.signaturelength)
+        # Identify and print the similar documents pairs
         lsh = LSH(signature_matrix)
-        lsh.find_b_and_r(0.8)
+        lsh.find_b_and_r(args.threshold)
         candidates = lsh.get_candidate_pairs()
         print("Pairs of documents that are estimated to have a similarity score equal to the provided threshold. "
               "(Note: Index staring at 0)\nIdentified candidate pairs:\nPair : similarity")
@@ -36,28 +46,34 @@ def main(args):
             print("{} : {:.2f}+".format(pair, args.threshold))
 
     elif method == 1:
+        # Use signature similarity
+
+        # Get document signatures
         min_hashing_object = MinHashing()
         signature_matrix = min_hashing_object.get_signature_matrix_hash(shingle_sets,
                                                                         signature_len=args.signaturelength)
-        indices = list(range(signature_matrix.shape[1]))
 
+        # Calculate and print similarity scores
         print("Similarity measure between the signatures. An approximation of the Jaccard similarity between hashed "
               "shingle sets.\n(Note: Only document pairs that are similar larger to the provided threshold is shown "
               "below)"
               "\nPair : similarity")
+        indices = list(range(signature_matrix.shape[1]))
         for pair_idx in combinations(indices, 2):
             similarity = CompareSignatures.similarity(signature_matrix[:, (pair_idx[0], pair_idx[1])])
             if similarity >= args.threshold:
                 print("{} : {:.2f}".format(pair_idx, similarity))
 
     elif method == 2:
+        # Use Jaccard similarity
+
         compare_sets = CompareSets()
 
-        indices = list(range(len(shingle_sets)))
-
+        # Calculate and print similarity scores
         print("Jaccard similarity between hashed shingle sets.\n(Note: Only document pairs that are similar larger to"
               " the provided threshold is shown below)"
               "\nPair : similarity")
+        indices = list(range(len(shingle_sets)))
         for pair_idx in combinations(indices, 2):
             similarity = compare_sets.get_similarity(shingle_sets[pair_idx[0]], shingle_sets[ pair_idx[1]])
             if similarity >= args.threshold:
@@ -65,8 +81,9 @@ def main(args):
 
     return
 
-
+# Default dataset path
 filename = Path('Data/bbc-text-small.csv')
+# Valid methods
 methods = {'lsh': 0, 'signature': 1, 'jaccard': 2}
 
 if __name__ == '__main__':
