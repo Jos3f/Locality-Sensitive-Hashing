@@ -36,7 +36,7 @@ As seen, the approximate form (in orange) of the Jaccard similarity (in blue) co
 
 We got interested in evaluating how well the similarity is approximated as the signature is changed so we plotted the mean of the magnitude of the residual errors, as signature length increases, over all possible combinations of the 9 documents used earlier. The resulting plot can be seen in the figure below, and as seen, the error decreases as signature length increases. The dangers of using too large signature lengths is that it increases the probability of false positives in the LSH method, since we only require that one band coincides over 2 documents for them to be considered as similar. 
 
-![error-vs-signature-length-plot](Results/error-vs-signature-length.PNG)
+![error-vs-signature-length-plot](Results/error-vs-signature-length.png)
 
 #### Scalability
 
