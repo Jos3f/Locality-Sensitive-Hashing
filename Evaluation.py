@@ -16,6 +16,7 @@ from CompareSignatures import CompareSignatures
 from LSH import LSH
 
 import matplotlib.pyplot as plt
+import matplotlib
 import numpy as np
 from itertools import combinations
 from tqdm import tqdm
@@ -283,7 +284,11 @@ class Evaluation:
         plt.title("The mean of the magnitude of the residual errors, as signature length increases.",
                   fontsize=12)
         plt.xlabel("Signature length", fontsize=12)
-        plt.xscale('log', base=3)
+        plt.xscale('log', basex=3)
+
+
+
+
         plt.ylabel("Error", fontsize=12)
 
         plt.show()
