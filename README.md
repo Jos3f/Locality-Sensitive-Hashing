@@ -1,5 +1,5 @@
-# Locality-Sensitive-Hashing
-Implementation of Locality Sensitive Hashing (LSH) for similarity comparison between documents in large data sets.
+# Locality-Sensitive Hashing
+Implementation of [Locality-Sensitive Hashing (LSH)](https://en.wikipedia.org/wiki/Locality-sensitive_hashing) for similarity comparison between documents in large data sets.
 
 This code was implemented and by [@jos3f](https://github.com/hkindbom/ID2222-Data-Mining) and  [@hkindbom](https://github.com/hkindbom). 
 
