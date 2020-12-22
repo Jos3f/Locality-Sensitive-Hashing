@@ -45,7 +45,7 @@ class Evaluation:
 
     def read_files(self, small_file, large_file):
         small_data_loader = DataLoader(small_file)
-        self.small_docs = small_data_loader.get_documents(10)
+        self.small_docs = small_data_loader.get_documents(10, randomize=False)
 
         large_data_loader = DataLoader(large_file)
         self.large_docs = large_data_loader.get_documents(self.nr_docs, self.char_dim)
