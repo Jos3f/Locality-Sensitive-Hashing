@@ -1,7 +1,7 @@
 # Locality-Sensitive Hashing
 Implementation of [Locality-Sensitive Hashing (LSH)](https://en.wikipedia.org/wiki/Locality-sensitive_hashing) for similarity comparison between documents in large data sets.
 
-This code was implemented and by [@jos3f](https://github.com/hkindbom/ID2222-Data-Mining) and  [@hkindbom](https://github.com/hkindbom). 
+This code was implemented by [@jos3f](https://github.com/hkindbom/ID2222-Data-Mining) and  [@hkindbom](https://github.com/hkindbom). 
 
 The implementation furthermore contains document comparison using Jaccard similarity of the shingle sets, and signature similarity comparison which is an approximation of the former measure of similarity. The [Evaluation class](https://github.com/Jos3f/Locality-Sensitive-Hashing/blob/main/Evaluation.py) contains a comparison of the three stated approaches for this task with respect to accuracy and time complexity. 
 
